@@ -1,12 +1,12 @@
 .TH LOOKUP 1 "February 2014"
 .SH NAME
 .PP
-lookup \- lookup database and print filenames of matched games
+lookup \- lookup database and print paths to entries of matched games
 .SH SYNOPSIS
 .PP
 .B lookup \-\-db 
 .I DBPATH 
-.B [ \-\-separator 
+.B [ \-\-no\-prefix ] [ \-\-separator 
 .I n|0|s
 .B ] [ \-\-query 
 .I QUERY
@@ -14,7 +14,7 @@ lookup \- lookup database and print filenames of matched games
 .SH DESCRIPTION
 .PP 
 .B lookup
-utility queries the database and prints all matched entries' filenames. It 
+utility queries the database and prints all matched entries' paths. It 
 should be used in combination with other standard utilities, notably 
 .BR xargs .
 .SH OPTIONS
@@ -23,6 +23,12 @@ should be used in combination with other standard utilities, notably
 .B \-\-db
 .br
 path to a database.
+.TP
+.B \-\-no\-prefix
+.br
+don't print
+.I DBPATH
+before each filename.
 .TP
 .B \-\-separator
 .br

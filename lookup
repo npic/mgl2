@@ -27,15 +27,17 @@ use MGDB;
 sub print_usage
 {
     print "Usage: lookup";
-    print " --db DBPATH [--separator (n|0|s)] [--query QUERY]\n";
+    print " --db DBPATH [--no-prefix] [--separator (n|0|s)] [--query QUERY]\n";
     return 1;
 }
 
 my $db_path = "";
+my $prefix = 1;
 my $separator = "n";
 my $query = ".*";
 my $need_help = 0;
 GetOptions ("db=s"        => \$db_path,
+            "prefix!"     => \$prefix,
             "separator=s" => \$separator,
             "query=s"     => \$query,
             "help|usage"  => \$need_help) or exit 1;
@@ -62,6 +64,17 @@ else
 
 my @db = MGDB::load_db $db_path;
 @db = MGDB::lookup_db \@db, $query;
-my @paths = map { $_->{"_PATH"} } @db;
+
+my @paths;
+if ($prefix)
+{
+    $db_path =~ s|/$||;
+    @paths = map { "$db_path/$_->{'_PATH'}" } @db;
+}
+else
+{
+    @paths = map { "$_->{'_PATH'}" } @db;
+}
+
 print join $separator, @paths;
 
