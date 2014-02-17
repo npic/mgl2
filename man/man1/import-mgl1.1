@@ -1,0 +1,39 @@
+.TH IMPORT-MGL1 1 "February 2014"
+.SH NAME
+.PP
+import-mgl1 \- import all games from an old MGL database
+.SH SYNOPSIS
+.PP
+.B import-mgl1 \-\-input 
+.I OLDDB 
+.B \-\-output 
+.I NEWDB
+.B [ --help | --usage ]
+.SH DESCRIPTION
+.PP 
+.B import-mgl1
+imports all games from an old My Game Library database into a new one.
+The filename for each new imported entry will be the same as the title.
+Note that if a game had slashes or null symbols in its title, they will be
+changed to spaces in a filename, but preserved in a new "Title:" tag.
+.SH OPTIONS
+.PP
+.TP
+.B \-\-input
+.br
+path to an old database.
+.TP
+.B \-\-output
+.br
+path to a new database. It will be created if it does not exist.
+.TP
+.B \-\-help, \-\-usage
+.br
+print the short usage information.
+.SH SEE ALSO
+.PP
+.BR import-desura (1),
+.BR mgl2 (1)
+.SH AUTHORS
+.PP
+Nikita Pichugin <pichuginn@gmail.com>

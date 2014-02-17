@@ -1,0 +1,3 @@
+/usr/bin/nvidia-settings -l &
+/usr/bin/urxvt +hold -sr -fg gray50 -bg black -e /mnt/data/games/MGL2/mgl2 &
+

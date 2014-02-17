@@ -1,0 +1,54 @@
+.TH MGL2-X 1 "February 2014"
+.SH NAME
+.PP
+mgl2-x \- wrap mgl2 to start in a separate X server
+.SH SYNOPSIS
+.PP
+.B mgl2-x \-\-client 
+.I XCLIENT 
+.B [ \-\-display 
+.I DISPLAY
+.B ] [ \-\-autostart 
+.I PROGRAM
+.B ] [ --help | --usage ]
+.SH DESCRIPTION
+.PP 
+.B mgl2-x
+starts the specified client in a separate X server. Though there are no 
+restrictions on what program to start, it should be used to kickstart an
+.B mgl2
+session in a separate X server somehow. There are a number of choices how to
+do it: for example, you can start 
+.B xterm \-e ...
+as an X client, or you can start a lightweight WM and configure it to autorun
+.BR mgl2 ,
+etc.
+.SH OPTIONS
+.PP
+.TP
+.B \-\-client
+.br
+an X client to start with its options.
+.TP
+.B \-\-display
+.br
+either a display number (non-negative integer without a colon prefix)
+or "auto". The latter means that the first available display number will be
+used. Default: auto.
+.TP
+.B \-\-autostart
+.br
+a command to execute after the start of the X server. This option may be useful
+if you use a terminal emulator as an X client and you need to autostart 
+something. Nothing will be done if this option is omitted.
+.TP
+.B \-\-help, \-\-usage
+.br
+print the short usage information.
+.SH SEE ALSO
+.PP
+.BR gen-desktop (1),
+.BR mgl2 (1)
+.SH AUTHORS
+.PP
+Nikita Pichugin <pichuginn@gmail.com>

@@ -1,0 +1,41 @@
+.TH IMPORT-DESURA 1 "February 2014"
+.SH NAME
+.PP
+import-desura \- import all games from a Desura installation
+.SH SYNOPSIS
+.PP
+.B import-desura \-\-input 
+.I DESURA_PATH 
+.B \-\-output 
+.I DBPATH
+.B [ --help | --usage ]
+.SH DESCRIPTION
+.PP 
+.B import-desura
+imports all games from a Desura installation. Each game title is derived from
+a respective game directory name. Each word in a title will be capitalized.
+.SH OPTIONS
+.PP
+.TP
+.B \-\-input
+.br
+path to a Desura installation root.
+.TP
+.B \-\-output
+.br
+path to a database. It will be created if it does not exist.
+.TP
+.B \-\-help, \-\-usage
+.br
+print the short usage information.
+.SH CAVEATS
+.PP
+Always specify full path to the Desura installation root, because relative
+path is written to "Command:" tags as is.
+.SH SEE ALSO
+.PP
+.BR import-mgl1 (1),
+.BR mgl2 (1)
+.SH AUTHORS
+.PP
+Nikita Pichugin <pichuginn@gmail.com>

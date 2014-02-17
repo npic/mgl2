@@ -1,0 +1,58 @@
+.TH MGL2.DB 5 "February 2014"
+.SH NAME
+.PP
+mgl2.db \- database format of My Game Library 2
+.SH DESCRIPTION
+.PP
+The 
+.I database 
+of MGL2 is a regular directory of arbitrary name with a number of 
+entries inside.
+.br
+An 
+.I entry 
+is a plain UTF-8 text file of arbitrary name. Entries are 
+displayed in the alphabetic order of their corresponding filenames. 
+Entry has the following content:
+.PP
+.RS
+Tag 1: Value 1
+.br
+Tag 2: Value 2
+.br
+Tag 3: Value 3
+.br
+(no newline)
+.RE
+.PP
+The tags and values are arbitrary text strings without newline symbols. Tags 
+must not contain the ": " (colon and space) sequence within. There are three 
+reserved tags with the special meaning:
+.PP
+.TP
+.B Title
+specifies the title of the game. It is always displayed first. The tag 
+itself is not displayed.
+.TP
+.B Command
+specifies the command to execute in order to run the game. It is never 
+displayed.
+.TP
+.B _PATH
+contains the filename of the entry. It is generated dynamically and should 
+not be stored in the entry itself. It is never displayed.
+.RE
+.PP
+All other tags with their values are printed in the order they are written in 
+an entry.
+.br
+There must be no empty strings in an entry.
+.SH SEE ALSO
+.PP
+.BR import-desura (1),
+.BR import-mgl1 (1),
+.BR lookup (1),
+.BR mgl2 (1)
+.SH AUTHORS
+.PP
+Nikita Pichugin <pichuginn@gmail.com>

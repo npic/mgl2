@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+
+<JWM>
+
+   <RootMenu onroot="0">
+      <Program label="MGL2">/usr/bin/urxvt +hold -sr -fg gray50 -bg black -e /mnt/data/games/MGL2/mgl2</Program>
+      <Program label="URxvt">/usr/bin/urxvt +hold -sr -fg gray50 -bg black</Program>
+      <Exit label="Exit" confirm="false"/>
+   </RootMenu>
+
+   <Group>
+      <Class>URxvt</Class>
+      <Option>maximized</Option>
+      <Option>notitle</Option>
+      <Option>nolist</Option>
+      <Option>noborder</Option>
+      <Option>layer:bottom</Option>
+   </Group>
+
+   <Group>
+      <Class>dota_linux</Class>
+      <Option>maximized</Option>
+      <Option>notitle</Option>
+      <Option>noborder</Option>
+   </Group>
+
+   <Tray  x="0" y="-1" height="24" autohide="false" layer="1">
+      <TrayButton label="Exit">exec:/usr/bin/jwm -exit</TrayButton>
+      <TaskList maxwidth="0"/>
+      <Dock/>
+      <Clock format="%H:%M"/>
+   </Tray>
+
+   <WindowStyle>
+
+      <Font>DejaVu Sans-10</Font>
+      <Width>1</Width>
+      <Height>20</Height>
+
+      <Active>
+         <Text>white</Text>
+         <Title>gray30</Title>
+         <Outline>black</Outline>
+         <Opacity>1.0</Opacity>
+      </Active>
+
+      <Inactive>
+         <Text>white</Text>
+         <Title>gray60</Title>
+         <Outline>black</Outline>
+         <Opacity>1.0</Opacity>
+      </Inactive>
+
+   </WindowStyle>
+
+   <TaskListStyle>
+      <Font>DejaVu Sans-10</Font>
+      <ActiveForeground>black</ActiveForeground>
+      <ActiveBackground>gray90</ActiveBackground>
+      <Foreground>black</Foreground>
+      <Background>gray90</Background>
+   </TaskListStyle>
+
+   <TrayStyle>
+      <Font>DejaVu Sans-10</Font>
+      <Background>gray90</Background>
+      <Foreground>black</Foreground>
+      <Opacity>1.0</Opacity>
+   </TrayStyle>
+
+   <MenuStyle>
+      <Font>DejaVu Sans-10</Font>
+      <Foreground>black</Foreground>
+      <Background>gray90</Background>
+      <ActiveForeground>white</ActiveForeground>
+      <ActiveBackground>gray30</ActiveBackground>
+      <Opacity>1.0</Opacity>
+   </MenuStyle>
+
+   <PopupStyle enabled="false">
+      <Font>DejaVu Sans-10</Font>
+      <Outline>black</Outline>
+      <Foreground>black</Foreground>
+      <Background>yellow</Background>
+   </PopupStyle>
+
+   <IconPath>
+      /usr/share/icons/oxygen/
+   </IconPath>
+
+   <Desktops width="1" height="1">
+   </Desktops>
+
+   <DoubleClickSpeed>400</DoubleClickSpeed>
+   <DoubleClickDelta>2</DoubleClickDelta>
+
+   <FocusModel>click</FocusModel>
+
+   <SnapMode distance="10">border</SnapMode>
+
+   <MoveMode>opaque</MoveMode>
+
+   <ResizeMode>opaque</ResizeMode>
+
+   <StartupCommand>/usr/bin/nvidia-settings -l</StartupCommand>
+   <StartupCommand>/usr/bin/urxvt +hold -sr -fg gray50 -bg black -e /mnt/data/games/MGL2/mgl2</StartupCommand>
+
+   <Key key="Up">up</Key>
+   <Key key="Down">down</Key>
+   <Key key="Right">right</Key>
+   <Key key="Left">left</Key>
+   <Key key="Return">select</Key>
+   <Key key="Escape">escape</Key>
+
+   <Key mask="A" key="Tab">next</Key>
+   <Key mask="A" key="F4">close</Key>
+   <Key mask="A" key="F1">root:0</Key>
+   <Key mask="A" key="F2">window</Key>
+   <Key mask="A" key="F10">maximize</Key>
+
+</JWM>
+

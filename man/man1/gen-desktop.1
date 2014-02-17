@@ -1,0 +1,68 @@
+.TH GEN-DESKTOP 1 "February 2014"
+.SH NAME
+.PP
+gen-desktop \- generate a .desktop file for menu for either mgl2-x or mgl2
+.SH SYNOPSIS
+.PP
+.B gen-desktop \-\-x \-\-client
+.I XCLIENT
+.B [ \-\-display
+.I DISPLAY
+.B ] [ \-\-autostart
+.I PROGRAM
+.B ] [ \-\-output
+.I FILE
+.B ]
+.br
+.B gen-desktop \-\-no\-x \-\-db
+.I DBPATH
+.B [ \-\-output
+.I FILE
+.B ]
+.br
+.B gen-desktop --help | --usage
+.SH DESCRIPTION
+.PP 
+.B gen-desktop
+generates a .desktop file for either mgl2-x or mgl2. The resulting .desktop 
+file should be compliant with freedesktop.org standard.
+.SH OPTIONS
+.PP
+.TP
+.B \-\-x
+.br
+generate .desktop file for
+.BR mgl2-x .
+The "Terminal" key will be set to "false".
+See
+.BR mgl2-x (1)
+for the explanation of
+.BR \-\-client ,
+.BR \-\-display ,
+and
+.BR \-\-autostart .
+.TP
+.B \-\-no\-x
+.br
+generate .desktop file for
+.BR mgl2 .
+The "Terminal" key will be set to "true".
+See
+.BR mgl2 (1)
+for the explanation of
+.BR \-\-db .
+.TP
+.B \-\-output
+.br
+output file name. Default is "./MGL2.desktop".
+.TP
+.B \-\-help, \-\-usage
+.br
+print the short usage information.
+.SH SEE ALSO
+.PP
+.BR mgl2 (1),
+.BR mgl2-x (1)
+.SH AUTHORS
+.PP
+Nikita Pichugin <pichuginn@gmail.com>

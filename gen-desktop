@@ -1,0 +1,110 @@
+#! /usr/bin/perl
+
+# Copyright 2012, 2013, 2014 Nikita Pichugin
+#
+# This file is part of My Game Library 2.
+# 
+# My Game Library 2 is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# My Game Library 2 is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with My Game Library 2.  If not, see <http://www.gnu.org/licenses/>.
+
+use strict;
+use warnings;
+use autodie;
+use Getopt::Long;
+use FindBin;
+
+sub print_usage
+{
+    print "Usage: gen-desktop";
+    print " --x";
+    print " --client XCLIENT";
+    print " [--display DISPLAY]";
+    print " [--autostart PROGRAM]";
+    print " [--output FILE]\n";
+
+    print "       gen-desktop";
+    print " --no-x";
+    print " --db DBPATH";
+    print " [--output FILE]\n";
+
+    return 1;
+}
+
+sub escape
+{
+    $_ = shift;
+    s/%/%%/g;
+    if (/[\s"'\\><~\|&;\$*?#)(`]/)
+    {
+        s/\\/\\\\\\\\/g;
+        s/(["`\$])/\\\\$1/g;
+        s/^/"/;
+        s/$/"/;
+    }
+    return $_;
+}
+
+my $x = 1;
+my $client = "";
+my $display = "";
+my $autostart = "";
+my $db_path = "";
+my $outfile = "./MGL2.desktop";
+my $need_help = 0;
+GetOptions ("x!"          => \$x,
+            "client=s"    => \$client,
+            "display=s"   => \$display,
+            "autostart=s" => \$autostart,
+            "db=s"        => \$db_path,
+            "output=s"    => \$outfile,
+            "help|usage"  => \$need_help) or exit 1;
+
+print_usage and exit 0 if $need_help;
+
+my ($exec, $terminal);
+if ($x)
+{
+    print_usage and exit 1 if $client eq "";
+
+    $exec = escape "$FindBin::Bin/mgl2-x";
+    $exec .= " --client "    . escape $client;
+    $exec .= " --display "   . escape $display   if $display ne "";
+    $exec .= " --autostart " . escape $autostart if $autostart ne "";
+    $terminal = "false";
+}
+else
+{
+    print_usage and exit 1 if $db_path eq "";
+
+    $exec = escape "$FindBin::Bin/mgl2";
+    $exec .= " --db " . escape $db_path;
+    $terminal = "true";
+}
+
+open my $desktop, ">", $outfile;
+print $desktop <<EOF;
+#The icon was got from http://www.fatcow.com/free-icons
+
+[Desktop Entry]
+Name=My Game Library 2
+Type=Application
+Exec=$exec
+Path=$FindBin::Bin/
+Icon=$FindBin::Bin/icon.png
+Terminal=$terminal
+Encoding=UTF-8
+Version=1.0
+
+EOF
+close $desktop;
+

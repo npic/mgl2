@@ -1,0 +1,59 @@
+.TH LOOKUP 1 "February 2014"
+.SH NAME
+.PP
+lookup \- lookup database and print filenames of matched games
+.SH SYNOPSIS
+.PP
+.B lookup \-\-db 
+.I DBPATH 
+.B [ \-\-separator 
+.I n|0|s
+.B ] [ \-\-query 
+.I QUERY
+.B ] [ --help | --usage ]
+.SH DESCRIPTION
+.PP 
+.B lookup
+utility queries the database and prints all matched entries' filenames. It 
+should be used in combination with other standard utilities, notably 
+.BR xargs .
+.SH OPTIONS
+.PP
+.TP
+.B \-\-db
+.br
+path to a database.
+.TP
+.B \-\-separator
+.br
+tells lookup how to separate results. 
+.IR n ,
+.IR 0 ,
+and
+.I s
+corresponds to
+.IR newline ,
+.I null
+.IR symbol ,
+and
+.IR space ,
+respectively. Default is "n".
+.TP
+.B \-\-query
+.br
+see
+.BR mgl2 (1)
+for details on queries. Note that lookup does not treat special commands like
+"reload", "help", "q", etc. as such. Default is ".*".
+.TP
+.B \-\-help, \-\-usage
+.br
+print the short usage information.
+.SH SEE ALSO
+.PP
+.BR xargs (1),
+.BR mgl2 (1),
+.BR mgl2.db (5)
+.SH AUTHORS
+.PP
+Nikita Pichugin <pichuginn@gmail.com>

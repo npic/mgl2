@@ -1,0 +1,22 @@
+My Game Library 2
+=================
+
+A simple, unix way game manager written in Perl. It is the successor to the old
+My Game Library. The most notable differences are:
+
+* Much simpler design
+* Arbitrary tags
+* Getopt::Long for command line parsing
+* Documentation
+
+A brief description of tools:
+
+* gen-desktop: generate a .desktop file for menu for either mgl2-x or mgl2
+* import-desura: import all games from your Desura installation
+* import-mgl1: import all games from your old MGL database
+* lookup: lookup database and print filenames of matched games
+* mgl2: the main program (interactive)
+* mgl2-x: wrap mgl2 to start in a separate X server
+
+See included man pages for details.
+

@@ -1,0 +1,74 @@
+#! /usr/bin/perl
+
+# Copyright 2012, 2013, 2014 Nikita Pichugin
+#
+# This file is part of My Game Library 2.
+# 
+# My Game Library 2 is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# My Game Library 2 is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with My Game Library 2.  If not, see <http://www.gnu.org/licenses/>.
+
+use strict;
+use warnings;
+use autodie;
+use Getopt::Long;
+use File::Find;
+
+sub print_usage
+{
+    print "Usage: import-desura --input DESURA_PATH --output DBPATH\n";
+    return 1;
+}
+
+sub wanted
+{
+    if (m|/desura_launch_Play\.sh$|)
+    {
+        my $title = $File::Find::dir;
+        $title =~ s|^.*/(.*?)$|$1|;
+        $title =~ s/-/ /g;
+        $title =~ s/(^\w|\s\w)/\U$1/g;
+
+        my $command = $File::Find::name;
+
+        open my $handle, ">", "$main::db_path/$title";
+        print $handle "Title: $title\n";
+        print $handle "Command: $command";
+        close $handle;
+    }
+}
+
+my $desura_path = "";
+our $db_path = "";
+my $need_help = 0;
+GetOptions ("input=s"    => \$desura_path,
+            "output=s"   => \$db_path,
+            "help|usage" => \$need_help) or exit 1;
+
+print_usage and exit 0 if $need_help;
+print_usage and exit 1 if $desura_path eq "" or $db_path eq "";
+
+if (not -d $db_path)
+{
+    mkdir $db_path;
+}
+
+$desura_path .= '/' if $desura_path !~ m|/$|;
+$desura_path .= 'common/';
+if (not -d $desura_path)
+{
+    print "This isn't a Desura installation directory\n";
+    exit 1;
+}
+
+find {"wanted" => \&wanted, "no_chdir" => 1}, ($desura_path);
+

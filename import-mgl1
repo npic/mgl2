@@ -1,0 +1,59 @@
+#! /usr/bin/perl
+
+# Copyright 2014 Nikita Pichugin
+#
+# This file is part of My Game Library 2.
+# 
+# My Game Library 2 is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# My Game Library 2 is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with My Game Library 2.  If not, see <http://www.gnu.org/licenses/>.
+
+use strict;
+use warnings;
+use autodie;
+use Getopt::Long;
+
+sub print_usage
+{
+    print "Usage: import-mgl1 --input OLDDB --output NEWDB\n";
+    return 1;
+}
+
+my $olddb = "";
+my $newdb = "";
+my $need_help = 0;
+GetOptions ("input=s"    => \$olddb,
+            "output=s"   => \$newdb,
+            "help|usage" => \$need_help) or exit 1;
+
+print_usage and exit 0 if $need_help;
+print_usage and exit 1 if $olddb eq "" or $newdb eq "";
+
+if (not -d $newdb)
+{
+    mkdir $newdb;
+}
+
+open my $handle_old, "<", $olddb;
+while (<$handle_old>)
+{
+    chomp;
+    my ($name, $exe) = split /;/, $_, 2;
+    my $correct_name = $name;
+    $correct_name =~ s!(\0|/)! !g;
+    open my $handle_new, ">", "$newdb/$correct_name";
+    print $handle_new "Title: $name\n";
+    print $handle_new "Command: $exe";
+    close $handle_new;
+}
+close $handle_old;
+

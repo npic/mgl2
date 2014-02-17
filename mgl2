@@ -1,0 +1,129 @@
+#! /usr/bin/perl
+
+# Copyright 2014 Nikita Pichugin
+#
+# This file is part of My Game Library 2.
+# 
+# My Game Library 2 is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# My Game Library 2 is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with My Game Library 2.  If not, see <http://www.gnu.org/licenses/>.
+
+use strict;
+use warnings;
+use Getopt::Long;
+use FindBin;
+use lib "$FindBin::Bin";
+use MGDB;
+
+sub print_usage
+{
+    print "Usage: mgl2 --db DBPATH\n";
+    return 1;
+}
+
+sub print_ps2
+{
+    print ($ENV{"PS2"} or "> ");
+    return 1;
+}
+
+sub print_help
+{
+    print <<END;
+My Game Library 2 Command List
+
+exit, quit, x, q ........... quit
+unselect, undo, u .......... reset current selection
+reload, r .................. reload database
+help, h .................... print this message
+empty string ............... display current selection
+any natural number ......... start game with given index
+Tag: any string ............ select games by given criteria
+
+If "Tag" is omitted, then "Title" is assumed
+
+END
+    return 1;
+}
+
+my $db_path = "";
+my $need_help = 0;
+GetOptions ("db=s"       => \$db_path,
+            "help|usage" => \$need_help) or exit 1;
+
+print_usage and exit 0 if $need_help;
+print_usage and exit 1 if $db_path eq "";
+
+my (@db, @selection);
+@db = MGDB::load_db $db_path;
+@selection = @db;
+
+print "My Game Library 2 by Nikita Pichugin\n";
+print "Type h for help\n\n";
+print_ps2;
+while (<STDIN>)
+{
+    chomp;
+    if (/^(exit|quit|x|q)$/)
+    {
+        last;
+    }
+    elsif (/^(unselect|undo|u)$/)
+    {
+        @selection = @db;
+        next;
+    }
+    elsif (/^(reload|r)$/)
+    {
+        @db = MGDB::load_db $db_path;
+        @selection = @db;
+        next;
+    }
+    elsif (/^(help|h)$/)
+    {
+        print_help;
+        next;
+    }
+    elsif (/^$/)
+    {
+        MGDB::display_db \@selection;
+        next;
+    }
+    elsif (/^[1-9][0-9]*$/ and $_ <= scalar @selection)
+    {
+        system $selection[$_-1]->{"Command"};
+        next;
+    }
+    else
+    {
+        my @new_selection = MGDB::lookup_db \@selection, $_;
+
+        if (scalar @new_selection == 0)
+        {
+            print "Nothing matched\n";
+        }
+        elsif (scalar @new_selection == 1)
+        {
+            system $new_selection[0]->{"Command"};
+        }
+        else
+        {
+            @selection = @new_selection;
+            MGDB::display_db \@selection;
+        }
+    }
+}
+continue
+{
+    print_ps2;
+}
+

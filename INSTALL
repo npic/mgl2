@@ -1,0 +1,9 @@
+All tools in MGL2 are relocateable, standalone Perl 5 scripts. All you need 
+to do is to place them in the same directory of your choice.
+
+All tools are depending only on core Perl modules. Any fairly recent unix-like 
+systems should not have any problems in running them.
+
+A few tools are of no use if you have non-unix-like system or system without 
+X server. The notable examples are gen-desktop, import-desura, and mgl2-x.
+

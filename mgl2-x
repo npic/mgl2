@@ -1,0 +1,56 @@
+#! /usr/bin/perl
+
+# Copyright 2012, 2013, 2014 Nikita Pichugin
+#
+# This file is part of My Game Library 2.
+# 
+# My Game Library 2 is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# My Game Library 2 is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with My Game Library 2.  If not, see <http://www.gnu.org/licenses/>.
+
+use strict;
+use warnings;
+use Getopt::Long;
+
+sub print_usage
+{
+    print "Usage: mgl2-x";
+    print " --client XCLIENT [--display DISPLAY] [--autostart PROGRAM]\n";
+    return 1;
+}
+
+my $client = "";
+my $display = "auto";
+my $autostart = "";
+my $need_help = 0;
+GetOptions ("client=s"    => \$client,
+            "display=s"   => \$display,
+            "autostart=s" => \$autostart,
+            "help|usage"  => \$need_help) or exit 1;
+
+print_usage and exit 0 if $need_help;
+print_usage and exit 1 if $client eq "";
+
+if ($display eq "auto")
+{
+    $display = 0;
+    $display++ while -e "/tmp/.X11-unix/X${display}";
+}
+
+system "/usr/bin/xinit $client -- \":${display}\" &";
+
+if ($autostart ne "")
+{
+    sleep 1 while not -e "/tmp/.X11-unix/X${display}";
+    system "DISPLAY=\":${display}\" $autostart";
+}
+

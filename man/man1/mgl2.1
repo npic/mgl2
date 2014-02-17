@@ -1,0 +1,75 @@
+.TH MGL2 1 "February 2014"
+.SH NAME
+.PP
+mgl2 \- an interactive interface to the My Game Library database
+.SH SYNOPSIS
+.PP
+.B mgl2 \-\-db 
+.I DBPATH 
+.B [ --help | --usage ]
+.SH DESCRIPTION
+.PP 
+.B mgl2
+is an interactive program that queries the database, displays results, and runs
+games. The possible commands are:
+.TP
+.B exit, quit, x, q
+.br
+quit the program. Sending EOF should also work.
+.TP
+.B unselect, undo, u
+.br
+reset the current selection. The default selection is the whole database.
+.TP
+.B reload, r
+.br
+reload the database. Current selection will be reset.
+.TP
+.B help, h
+.br
+display a short help message.
+.TP
+.B empty string
+.br
+display the current selection.
+.TP
+.B any natural number in range [1 ... max. index]
+.br
+start the game with this index in the current selection.
+.TP
+.B any other string
+.br
+is split in two parts by the first ": " (colon-space) sequence. The left part
+is considered to be tag, and the right is considered to be its value. If the
+tag is missing (i.e. there are no colon-space in the input), then the "Title"
+will be assumed. Then every game in the current selection that satisfies the
+given criteria, form the new selection. Note that tags are case-sensitive
+while values are not (in fact, you can specify a Perl regexp as a value). If
+there are no games in the new selection, it is discarded. If there is only one
+game in the new selection, then the game is started and the new selection is
+discarded. If there are more than one game in the selection, then the new 
+selection becomes the current selection and is displayed immediately.
+.SH OPTIONS
+.PP
+.TP
+.B \-\-db
+.br
+path to a database.
+.TP
+.B \-\-help, \-\-usage
+.br
+print the short usage information.
+.SH ENVIRONMENT
+.PP
+.TP
+.B PS2
+used as a command prompt. If this variable is not defined, the default "> "
+will be used.
+.SH SEE ALSO
+.PP
+.BR gen-desktop (1),
+.BR mgl2-x (1),
+.BR mgl2.db (5)
+.SH AUTHORS
+.PP
+Nikita Pichugin <pichuginn@gmail.com>
