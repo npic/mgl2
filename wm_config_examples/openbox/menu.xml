@@ -7,7 +7,7 @@
 
 <menu id="root-menu" label="Openbox 3">
   <item label="My Game Library 2">
-    <action name="Execute"><execute>/usr/bin/urxvt +hold -sr -fg gray50 -bg black -e /mnt/data/games/MGL2/mgl2</execute></action>
+    <action name="Execute"><execute>/usr/bin/urxvt +hold -sr -fg gray50 -bg black -e /mnt/data/games/MGL2/mgl2 --db /mnt/data/games/MGL2/nikita.db</execute></action>
   </item>
   <item label="Terminal emulator">
     <action name="Execute"><execute>/usr/bin/urxvt +hold -sr -fg gray50 -bg black</execute></action>
