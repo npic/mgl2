@@ -83,7 +83,7 @@ sub display_db
     {
         my $indent = " " x length "[$counter]";
         print "[$counter] $entry->{'Title'}\n";
-        foreach my $tag (keys(%{$entry}))
+        foreach my $tag (sort keys %{$entry})
         {
             if($tag !~ /^(Title|Command|_PATH)$/)
             {
