@@ -1,3 +1,2 @@
-/usr/bin/nvidia-settings -l &
-/usr/bin/urxvt +hold -sr -fg gray50 -bg black -e /mnt/data/games/MGL2/mgl2 --db /mnt/data/games/MGL2/nikita.db &
+/usr/bin/urxvt +hold -sr -fg gray50 -bg black -e /home/nikita/bin/mgl2/mgl2 --db /home/nikita/bin/mgl2/nikita.db &
 
