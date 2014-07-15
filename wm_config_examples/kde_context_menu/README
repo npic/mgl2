@@ -1,0 +1,11 @@
+KDE 4 context menu integration
+
+The point of this is to have a handy entry in the Dolphin's context menu to
+easily add a game launcher to an MGL2 database.
+
+1. Place the .desktop file into the ~/.kde/share/kde4/services/ServiceMenus/ 
+directory;
+2. Place the .sh script somewhere;
+3. Change the path in the .sh script as you wish;
+4. Edit the Exec line in the .desktop file accordingly.
+

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream
+Actions=addToMGL2
+
+[Desktop Action addToMGL2]
+Name=Add to an MGL2 database
+Name[ru]=Добавить в коллекцию MGL2
+Exec=/foo/bar/baz/addToMGL2.sh %u
