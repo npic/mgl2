@@ -1,4 +1,4 @@
-.TH MGL2 1 "February 2014"
+.TH MGL2 1 "November 2014"
 .SH NAME
 .PP
 mgl2 \- an interactive interface to the My Game Library database
@@ -28,6 +28,11 @@ reload the database. Current selection will be reset.
 .B help, h
 .br
 display a short help message.
+.TP
+.B edit, e index
+.br
+quickly edit the game entry with the given index and reload the database.
+The EDITOR environment variable is honored. The default editor is vi.
 .TP
 .B empty string
 .br
@@ -65,6 +70,10 @@ print the short usage information.
 .B PS2
 used as a command prompt. If this variable is not defined, the default "> "
 will be used.
+.TP
+.B EDITOR
+the editor to use for the "edit" command. If this variable is not defined,
+the default "vi" will be used.
 .SH SEE ALSO
 .PP
 .BR gen-desktop (1),

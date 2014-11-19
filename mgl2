@@ -45,6 +45,7 @@ exit, quit, x, q ........... quit
 unselect, undo, u .......... reset current selection
 reload, r .................. reload database
 help, h .................... print this message
+edit, e index .............. edit the game entry with EDITOR
 empty string ............... display current selection
 any natural number ......... start game with given index
 Tag: any string ............ select games by given criteria
@@ -91,6 +92,14 @@ while (<STDIN>)
     elsif (/^(help|h)$/)
     {
         print_help;
+        next;
+    }
+    elsif (/^(edit|e)\s+([1-9][0-9]*)$/ and $2 <= scalar @selection)
+    {
+        my $editor = ($ENV{"EDITOR"} or "vi");
+        system "$editor \"$db_path/$selection[$2-1]->{'_PATH'}\"";
+        @db = MGDB::load_db $db_path;
+        @selection = @db;
         next;
     }
     elsif (/^$/)
