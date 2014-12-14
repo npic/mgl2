@@ -114,7 +114,12 @@ while (<STDIN>)
     }
     else
     {
-        my @new_selection = MGDB::lookup_db \@selection, $_;
+        my @new_selection;
+        eval
+        {
+            @new_selection = MGDB::lookup_db \@selection, $_;   
+            1;
+        } or print "Bad regex\n" and next;
 
         if (scalar @new_selection == 0)
         {
